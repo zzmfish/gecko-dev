@@ -431,6 +431,9 @@ class JSString : public js::gc::BarrieredCell<JSString>
 
     static inline js::ThingRootKind rootKind() { return js::THING_ROOT_STRING; }
 
+    /*!!!!! zhouzm@ucweb.com START !!!!!*/
+    void dumpToBuffer(char *buffer, int length);
+    /*!!!!! zhouzm@ucweb.com END !!!!!*/
 #ifdef DEBUG
     void dump();
     static void dumpChars(const jschar *s, size_t len);

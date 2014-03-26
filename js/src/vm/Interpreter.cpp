@@ -458,6 +458,29 @@ js::Invoke(JSContext *cx, CallArgs args, MaybeConstruct construct)
 
     /* Invoke native functions. */
     JSFunction *fun = &callee.as<JSFunction>();
+
+    /*!!!!! zhouzm@ucweb.com START !!!!!*/
+    JSAtom *funName = fun->displayAtom();
+    if (funName) {
+        char buffer[256] = {'\0'};
+        funName->dumpToBuffer(buffer, sizeof(buffer));
+        if (strcasecmp(buffer, "toString") != 0) {
+            printf("zhouzm# %s(", buffer);
+            /*
+            for (unsigned i = 0; i < args.length(); i ++) {
+                RootedValue value(cx, args.get(i));
+                RootedString str(cx, ToString(cx, value));
+                if (str) {
+                    str->dumpToBuffer(buffer, sizeof(buffer));
+                    printf("%s, ", buffer);
+                }
+            }
+            */
+            printf(")\n");
+        }
+    }
+    /*!!!!! zhouzm@ucweb.com END !!!!!*/
+
     JS_ASSERT_IF(construct, !fun->isNativeConstructor());
     if (fun->isNative())
         return CallJSNative(cx, fun->native(), args);

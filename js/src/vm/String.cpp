@@ -692,3 +692,19 @@ JSAtom::dump()
     this->JSString::dump();
 }
 #endif /* DEBUG */
+
+/*!!!!! zhouzm@ucweb.com START !!!!!*/
+void JSString::dumpToBuffer(char *buffer, int length)
+{
+    const jschar *c = getChars(NULL);
+    char *p = buffer;
+    while (c && *c && *c < 256 && p < buffer + length - 1) { 
+        *p = *c;
+        c ++;
+        p ++;
+    } 
+    *p = '\0';
+}
+/*!!!!! zhouzm@ucweb.com END !!!!!*/
+
+
