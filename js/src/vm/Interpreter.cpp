@@ -460,6 +460,7 @@ js::Invoke(JSContext *cx, CallArgs args, MaybeConstruct construct)
     JSFunction *fun = &callee.as<JSFunction>();
 
     /*!!!!! zhouzm@ucweb.com START !!!!!*/
+    #if 0
     JSAtom *funName = fun->displayAtom();
     if (funName) {
         char buffer[256] = {'\0'};
@@ -479,6 +480,7 @@ js::Invoke(JSContext *cx, CallArgs args, MaybeConstruct construct)
             printf(")\n");
         }
     }
+    #endif
     /*!!!!! zhouzm@ucweb.com END !!!!!*/
 
     JS_ASSERT_IF(construct, !fun->isNativeConstructor());

@@ -37,6 +37,7 @@ STL_FLAGS=
 
 LIBS += \
 	$(XPCOM_STANDALONE_GLUE_LDOPTS) \
+	-L$(topsrcdir)/modules/tracegraph/src -ltracegraph \
 	$(NULL)
 
 ifdef MOZ_LINKER

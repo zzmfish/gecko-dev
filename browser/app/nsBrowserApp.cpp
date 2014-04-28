@@ -58,6 +58,10 @@ using namespace mozilla;
 const char* kMetroConsoleIdParam = "testconsoleid=";
 #endif
 
+/*!!!!! zhouzm@ucweb.com START !!!!!*/
+#include "tracegraph.h"
+/*!!!!! zhouzm@ucweb.com END !!!!!*/
+
 static void Output(const char *fmt, ... )
 {
   va_list ap;
@@ -173,6 +177,9 @@ static const nsDynamicFunctionLoad kXULFuncs[] = {
 
 static int do_main(int argc, char* argv[], nsIFile *xreDirectory)
 {
+  /*!!!!! change by zhouzm START !!!!!*/
+  backtrace_init("libxul.so", 100, 65535);
+  /*!!!!! change by zhouzm END !!!!!*/
   nsCOMPtr<nsIFile> appini;
   nsresult rv;
   uint32_t mainFlags = 0;
@@ -221,6 +228,9 @@ static int do_main(int argc, char* argv[], nsIFile *xreDirectory)
     appData->xreDirectory = xreDirectory;
     int result = XRE_main(argc, argv, appData, mainFlags);
     XRE_FreeAppData(appData);
+    /*!!!!! change by zhouzm START !!!!!*/
+    backtrace_dump("backtrace.out");
+    /*!!!!! change by zhouzm END !!!!!*/
     return result;
   }
 
@@ -279,7 +289,11 @@ static int do_main(int argc, char* argv[], nsIFile *xreDirectory)
     // xreDirectory already has a refcount from NS_NewLocalFile
     appData.xreDirectory = xreDirectory;
 
-    return XRE_main(argc, argv, &appData, mainFlags);
+    int result = XRE_main(argc, argv, &appData, mainFlags);
+    /*!!!!! change by zhouzm START !!!!!*/
+    backtrace_dump("backtrace.out");
+    /*!!!!! change by zhouzm END !!!!!*/
+    return result;
   }
 
   // Metro browser launch
@@ -378,6 +392,9 @@ static int do_main(int argc, char* argv[], nsIFile *xreDirectory)
 
   int result = XRE_main(argc, argv, appData, mainFlags);
   XRE_FreeAppData(appData);
+  /*!!!!! change by zhouzm START !!!!!*/
+  backtrace_dump("backtrace.out");
+  /*!!!!! change by zhouzm END !!!!!*/
   return result;
 #endif
 

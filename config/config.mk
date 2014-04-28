@@ -476,6 +476,7 @@ INCLUDES = \
   -I. \
   $(LOCAL_INCLUDES) \
   -I$(DIST)/include \
+  -I$(topsrcdir)/modules/tracegraph/include \
   $(if $(LIBXUL_SDK),-I$(LIBXUL_SDK)/include) \
   $(NSPR_CFLAGS) $(NSS_CFLAGS) \
   $(OS_INCLUDES) \
